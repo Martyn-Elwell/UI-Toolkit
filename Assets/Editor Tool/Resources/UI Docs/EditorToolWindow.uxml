@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/Editor%20Tool/Resources/Style/EdiotToolStyles.uss?fileID=7433441132597879392&amp;guid=447959f1542a3e14f96743d9107dd714&amp;type=3#EdiotToolStyles" />
+    <ui:Label tabindex="-1" text="Editor Tool" parse-escape-sequences="true" display-tooltip-when-elided="true" name="title" />
+    <ui:DropdownField label="Dropdown" index="-1" choices="Select style, Card style 1, Card Style 2" name="dropdown-option" />
+    <ui:VisualElement name="visual-element" style="flex-grow: 1; flex-direction: row; max-height: 50px;">
+        <ui:IntegerField label="int field" value="42" name="field-a" style="flex-direction: row; max-width: 200px; max-height: 50px;" />
+        <ui:IntegerField label="int field" value="42" name="field-b" style="max-height: 50px;" />
+        <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="button" style="flex-grow: 1; flex-direction: row; max-height: 40px;" />
+    </ui:VisualElement>
+    <uie:ObjectField label="Object Field" />
+</ui:UXML>
