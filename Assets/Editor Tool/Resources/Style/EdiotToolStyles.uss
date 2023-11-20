@@ -35,7 +35,18 @@
     flex-direction: row;
     flex-grow: 0;
     opacity: 1;
-    max-height: 40px;
+    max-height: 20px;
+    overflow: visible;
+    align-items: stretch;
+}
+
+#field-a TextElement {
+    max-width: none;
+    min-width: auto;
+    flex-direction: row;
+    flex-grow: 0;
+    opacity: 1;
+    max-height: none;
 }
 
 #field-b #unity-text-input {
@@ -44,5 +55,16 @@
     flex-direction: row;
     flex-grow: 0;
     opacity: 1;
-    max-height: 40px;
+    max-height: 20px;
+    overflow: visible;
+    align-items: stretch;
+}
+
+#field-b TextElement {
+    max-width: none;
+    min-width: auto;
+    flex-direction: row;
+    flex-grow: 0;
+    opacity: 1;
+    max-height: none;
 }
