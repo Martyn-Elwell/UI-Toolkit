@@ -1,15 +1,15 @@
 {
     "UxmlGuid": "f87f41b0da819374599b66d7612048f2",
     "UxmlPath": "Assets/Editor/CardEditor.uxml",
-    "CanvasX": 0,
+    "CanvasX": -4,
     "CanvasY": 0,
     "CanvasWidth": 350,
-    "CanvasHeight": 450,
+    "CanvasHeight": 600,
     "MatchGameView": false,
-    "ZoomScale": 1.2000000476837159,
+    "ZoomScale": 1.399999976158142,
     "PanOffset": {
-        "x": 103.11944580078125,
-        "y": 78.26748657226563
+        "x": 85.50140380859375,
+        "y": 172.32962036132813
     },
     "ColorModeBackgroundOpacity": 1.0,
     "ImageModeCanvasBackgroundOpacity": 1.0,

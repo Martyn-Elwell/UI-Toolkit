@@ -9,8 +9,9 @@ public class CardEditor : EditorWindow
     public VisualTreeAsset visualTreeAsset;
     public VisualElement root;
     public GameObject cardTemplate;
-    private TextField inputField;
-    private DropdownField cardType;
+    private EnumField cardTypeField;
+    private SliderInt inputField;
+    private EnumField suitField;
     private VisualElement traditionalElement;
     private VisualElement unoElement;
 
@@ -32,14 +33,14 @@ public class CardEditor : EditorWindow
     {
 
         // Find the input field and dropdown in the UXML hierarchy
-        inputField = root.Q<TextField>("inputField");
-        cardType = root.Q<DropdownField>("CardTypeField");
+        cardTypeField = root.Q<EnumField>("CardTypeField");
+        inputField = root.Q<SliderInt>("InputField");
+        
 
         traditionalElement = root.Q<VisualElement>("TraditonalElement");
-        unoElement = root.Q<VisualElement>("UnoElement");
+        //unoElement = root.Q<VisualElement>("UnoElement");
 
-        // Subscribe to the change event of the dropdown
-        cardType.RegisterValueChangedCallback(OnInputTypeChanged);
+        cardTypeField.RegisterValueChangedCallback(OnInputTypeChanged);
 
         Button generateButton = rootVisualElement.Q<Button>("Generate");
         if (generateButton != null)
@@ -48,46 +49,40 @@ public class CardEditor : EditorWindow
         }
 
         // Set the initial available fields based on the default dropdown value
-        UpdateAvailableFields();
+        UpdateAvailableFields(CardTypeEnum.Traditional);
 
     }
 
-    private void OnInputTypeChanged(ChangeEvent<string> evt)
+    private void OnInputTypeChanged(ChangeEvent<System.Enum> evt)
     {
-        // Handle dropdown value change
-        UpdateAvailableFields();
+
+        CardTypeEnum cardType = (CardTypeEnum)evt.newValue;
+        UpdateAvailableFields(cardType);
     }
 
-    private void UpdateAvailableFields()
+    private void UpdateAvailableFields(CardTypeEnum cardType)
     {
         // Clear or modify the UI based on the selected dropdown value
-        string selectedInputType = cardType.value;
+        
 
-        if (selectedInputType == "Traditional")
+        if (cardType == CardTypeEnum.Traditional)
         {
             Debug.Log("Traditional");
             // Show or hide UI elements based on the selected input type
             traditionalElement.style.display = DisplayStyle.Flex;
-            unoElement.style.display = DisplayStyle.None;
-            // Additional UI elements for text input...
-
-            // Hide or clear UI elements not needed for this input type
-            //...
+            //unoElement.style.display = DisplayStyle.None;
+            
 
         }
-        else if (selectedInputType == "Uno")
+        else if (cardType == CardTypeEnum.Uno)
         {
             Debug.Log("Uno");
             // Show or hide UI elements based on the selected input type
             traditionalElement.style.display = DisplayStyle.None;
-            unoElement.style.display = DisplayStyle.Flex;
-            // Additional UI elements for number input...
-
-            // Hide or clear UI elements not needed for this input type
-            //...
+            //unoElement.style.display = DisplayStyle.Flex;
+            
         }
         // Add more cases for other input types as needed
-        //...
     }
 
     private void OnButtonPressed()
@@ -99,21 +94,22 @@ public class CardEditor : EditorWindow
             // Instantiate the prefab
             GameObject newCard = PrefabUtility.InstantiatePrefab(cardTemplate) as GameObject;
 
+            // Edit Prefab
+            suitField = root.Q<EnumField>("SuitField");
+            var cardData = newCard.GetComponent<TraditionalCard>();
+            cardData.value = inputField.value;
+            cardData.suit = (SuitEnum)suitField.value;
+            cardData.Set();
+
+
+            // Save the prefab
             string folderPath = "Assets/Cards/";
-            string prefabName = "NewPrefab.prefab";
+            string prefabName = inputField.value + "_of_" + (SuitEnum)suitField.value + ".prefab";
             string path = folderPath + prefabName;
 
-            // Save the prefab
+            
             PrefabUtility.SaveAsPrefabAsset(newCard, path);
-
-            // Log or handle the creation success
-            Debug.Log("Prefab created: " + path);
-
-            // Save the prefab
-            PrefabUtility.SaveAsPrefabAsset(newCard, path);
-
-            // Destroy the instantiated GameObject in the scene
-            DestroyImmediate(newCard);
+            //DestroyImmediate(newCard);
 
             // Log or handle the creation success
             Debug.Log("Prefab created: " + path);
