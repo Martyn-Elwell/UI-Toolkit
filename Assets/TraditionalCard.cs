@@ -16,10 +16,13 @@ public class TraditionalCard : MonoBehaviour
 {
     public SuitEnum suit;
     public List<Image> icons;
-    public TextMeshProUGUI text;
+    public Image background;
+    public List<TextMeshProUGUI> texts;
     
     public int value;
     public List<Sprite> suitSprites;
+    public Sprite faceSprite;
+    public Sprite backgroundSprite;
 
     public void Set()
     {
@@ -38,7 +41,11 @@ public class TraditionalCard : MonoBehaviour
         else if (value == 12) { valueString = "Q"; }
         else if (value == 13) { valueString = "K"; }
 
-        text.text = valueString;
+        foreach (TextMeshProUGUI text in texts)
+        {
+            text.text = valueString;
+        }
+        
 
         switch (suit)
         {
@@ -46,6 +53,10 @@ public class TraditionalCard : MonoBehaviour
                 foreach (Image icon in icons)
                 {
                     icon.sprite = suitSprites[0];
+                    foreach (TextMeshProUGUI text in texts)
+                    {
+                        text.color = Color.red;
+                    }
                 }
                 break;
             case SuitEnum.Clubs:
@@ -58,6 +69,10 @@ public class TraditionalCard : MonoBehaviour
                 foreach (Image icon in icons)
                 {
                     icon.sprite = suitSprites[2];
+                    foreach (TextMeshProUGUI text in texts)
+                    {
+                        text.color = Color.red;
+                    }
                 }
                 break;
             case SuitEnum.Spades:
@@ -70,16 +85,29 @@ public class TraditionalCard : MonoBehaviour
         if (value == 1)
         {
             icons[1].transform.localScale = Vector3.one * 1.5f;
+            texts[1].text = "";
         }
         else if (value <= 10)
         {
             CreateCircleFormation();
+            texts[1].text = "";
             DestroyImmediate(icons[1]);
         }
         else if (value >= 11)
         {
-            DestroyImmediate(icons[1]);
+            if (faceSprite != null)
+            {
+                texts[1].text = "";
+                icons[1].sprite = faceSprite;
+                icons[1].transform.localScale = Vector3.one * 8;
+            }
+            else
+            {
+            }
         }
+        if (backgroundSprite != null) { background.sprite = backgroundSprite; }
+
+        
     }
 
     // Update is called once per frame

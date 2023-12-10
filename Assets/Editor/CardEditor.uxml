@@ -3,13 +3,23 @@
     <ui:VisualElement style="flex-grow: 1;">
         <ui:Label tabindex="-1" text="Card Editor" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Title" style="font-size: 16px; -unity-text-align: upper-center;" />
         <ui:EnumField label="Card Type" type="CardTypeEnum, Assembly-CSharp-Editor" name="CardTypeField" />
+        <uie:ObjectField label="Background Image" type="UnityEngine.Sprite, UnityEngine.CoreModule" name="BackgroundField" />
         <ui:VisualElement name="TraditonalElement" style="flex-grow: 1; max-height: none;">
             <ui:EnumField label="Suit" type="SuitEnum, Assembly-CSharp" name="SuitField" />
-            <ui:SliderInt picking-mode="Ignore" label="Card Number (1-13)&#10;1=A 11=J 12=Q 13=K" value="1" high-value="13" low-value="1" show-input-field="true" name="InputField" />
-            <uie:ObjectField label="Image" type="UnityEngine.Texture2D, UnityEngine.CoreModule" />
+            <ui:SliderInt picking-mode="Ignore" label="Card Number (1-13)&#10;0=Joker 1=Ace 11=Jack 12=Queen 13=King" value="1" high-value="13" low-value="0" show-input-field="true" name="InputField" />
+            <uie:ObjectField label="Face Card Image" name="ObjectField" type="UnityEngine.Sprite, UnityEngine.CoreModule" allow-scene-objects="true" />
         </ui:VisualElement>
+        <ui:VisualElement name="UnoElement" style="flex-grow: 1; max-height: none;">
+            <ui:EnumField label="Colour" type="UnoEnum, Assembly-CSharp" name="ColourEnumField" />
+            <ui:EnumField label="Colour" type="BlackEnum, Assembly-CSharp" name="BlackCardOptions" />
+            <ui:SliderInt picking-mode="Ignore" label="Card Number (1-13)&#10;11= Ø 12=+2 13=↔" value="1" high-value="13" low-value="1" show-input-field="true" name="InputFieldUno" />
+            <uie:ObjectField label="Icon Card Image" name="ObjectFieldUno" type="UnityEngine.Sprite, UnityEngine.CoreModule" allow-scene-objects="true" />
+            <ui:TextField picking-mode="Ignore" label="Add a custom colour" name="CustomUnoTextField" />
+            <uie:ColorField label="Custom Color" value="#FF0004FF" name="CustomUnoColourField" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement style="flex-grow: 1;">
         <ui:VisualElement name="PreviewElement" style="flex-grow: 1; min-height: 400px;" />
-        <ui:Toggle label="3D" />
         <ui:Button text="Generate" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Generate" />
     </ui:VisualElement>
 </ui:UXML>
